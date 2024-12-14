@@ -2,14 +2,14 @@
 
 import DropdownCity from "@/components/dropdownCity";
 import DropdownProvince from "@/components/dropdownProvince";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Home() {
   const [data, setData] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [originState, setOriginState] = useState<number>(-1);
 
-  const getCost = async () => {
+  const getCost = useCallback(async () => {
     if (originState === -1) {
       return;
     }
@@ -37,7 +37,7 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [originState]);
 
   useEffect(() => {
     if (originState !== -1) {
