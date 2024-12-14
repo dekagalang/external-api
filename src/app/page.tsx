@@ -2,9 +2,10 @@
 
 import DropdownCity from "@/components/dropdownCity";
 import DropdownProvince from "@/components/dropdownProvince";
+// import withAuth from "@/hoc/withAuth";
 import { useCallback, useEffect, useState } from "react";
 
-export default function Home() {
+function Home() {
   const [data, setData] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [originState, setOriginState] = useState<number>(-1);
@@ -16,7 +17,7 @@ export default function Home() {
     setIsLoading(true);
     try {
       const response = await fetch(
-        "https://8000-idx-test-1733641691232.cluster-qpa6grkipzc64wfjrbr3hsdma2.cloudworkstations.dev/cost",
+        "https://node-6ccix5kpy-appsvrs-projects.vercel.app/cost",
         {
           method: "POST",
           body: JSON.stringify({
@@ -47,11 +48,11 @@ export default function Home() {
   return (
     <div>
       <DropdownProvince
-        url="https://8000-idx-test-1733641691232.cluster-qpa6grkipzc64wfjrbr3hsdma2.cloudworkstations.dev/province"
+        url="https://node-6ccix5kpy-appsvrs-projects.vercel.app/province"
         label="Provinsi"
       />
       <DropdownCity
-        url="https://8000-idx-test-1733641691232.cluster-qpa6grkipzc64wfjrbr3hsdma2.cloudworkstations.dev/city"
+        url="https://node-6ccix5kpy-appsvrs-projects.vercel.app/city"
         label="Kota"
         onSelect={(city) => {
           setOriginState(city.city_id);
@@ -61,3 +62,6 @@ export default function Home() {
     </div>
   );
 }
+
+// export default withAuth(Home);
+export default Home;
