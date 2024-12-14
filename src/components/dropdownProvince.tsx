@@ -4,6 +4,10 @@ import { ProvinceSchema, Province } from "@/constants";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 
+interface ButtonProps {
+  bgColor?: string;
+}
+
 const DropdownWrapper = styled.div`
   position: relative;
   width: 300px;
@@ -22,7 +26,7 @@ const DropdownButton = styled.button`
   outline: none;
 `;
 
-const DropdownList = styled.ul`
+const DropdownList = styled.ul<ButtonProps>`
   position: absolute;
   top: 100%;
   left: 0;
@@ -31,7 +35,7 @@ const DropdownList = styled.ul`
   overflow-y: auto;
   margin: 5px 0;
   padding: 0;
-  background-color: #fff;
+  background-color: ${(props) => props.bgColor || "#fff"};
   border: 1px solid #ccc;
   border-radius: 5px;
   list-style: none;
@@ -99,7 +103,7 @@ const DropdownProvince = ({ url, label, onSelect }: DropdownProps) => {
         {selectedItem ? selectedItem.province : "Pilih Opsi"}
       </DropdownButton>
       {isOpen && (
-        <DropdownList>
+        <DropdownList bgColor="green">
           {isLoading ? (
             <DropdownListItem>Loading...</DropdownListItem>
           ) : (
