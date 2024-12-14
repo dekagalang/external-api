@@ -1,22 +1,8 @@
 "use client";
 
+import { CitySchema, City } from "@/constants";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-
-interface CitySchema {
-  city_id: number;
-  province_id: number;
-  province: string;
-  type: string;
-  city_name: string;
-  postal_code: number;
-}
-interface CityRes {
-  results: CitySchema[];
-}
-interface City {
-  rajaongkir: CityRes;
-}
 
 const DropdownWrapper = styled.div`
   position: relative;
@@ -64,9 +50,10 @@ const DropdownListItem = styled.li`
 interface DropdownProps {
   label: string;
   url: string;
+  onSelect: (item: CitySchema) => void;
 }
 
-const DropdownCity = ({ url, label }: DropdownProps) => {
+const DropdownCity = ({ url, label, onSelect }: DropdownProps) => {
   const [data, setData] = useState<CitySchema[]>([]);
   const [selectedItem, setSelectedItem] = useState<CitySchema | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -96,6 +83,7 @@ const DropdownCity = ({ url, label }: DropdownProps) => {
   };
 
   const handleSelect = (item: CitySchema) => {
+    onSelect(item);
     setSelectedItem(item);
     setIsOpen(false);
   };

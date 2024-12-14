@@ -1,18 +1,8 @@
 "use client";
 
+import { ProvinceSchema, Province } from "@/constants";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-
-interface ProvinceSchema {
-  province_id: number;
-  province: string;
-}
-interface ProvinceRes {
-  results: ProvinceSchema[];
-}
-interface Province {
-  rajaongkir: ProvinceRes;
-}
 
 const DropdownWrapper = styled.div`
   position: relative;
@@ -60,9 +50,10 @@ const DropdownListItem = styled.li`
 interface DropdownProps {
   label: string;
   url: string;
+  onSelect?: (item: ProvinceSchema) => void;
 }
 
-const DropdownProvince = ({ url, label }: DropdownProps) => {
+const DropdownProvince = ({ url, label, onSelect }: DropdownProps) => {
   const [data, setData] = useState<ProvinceSchema[]>([]);
   const [selectedItem, setSelectedItem] = useState<ProvinceSchema | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -92,6 +83,9 @@ const DropdownProvince = ({ url, label }: DropdownProps) => {
   };
 
   const handleSelect = (item: ProvinceSchema) => {
+    if (onSelect) {
+      onSelect(item);
+    }
     setSelectedItem(item);
     setIsOpen(false);
   };
