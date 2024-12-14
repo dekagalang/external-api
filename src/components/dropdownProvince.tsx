@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 interface ButtonProps {
-  bgColor?: string;
+  bgcolor?: string;
 }
 
 const DropdownWrapper = styled.div`
@@ -35,7 +35,7 @@ const DropdownList = styled.ul<ButtonProps>`
   overflow-y: auto;
   margin: 5px 0;
   padding: 0;
-  background-color: ${(props) => props.bgColor || "#fff"};
+  background-color: ${(props) => props?.bgcolor || "#fff"};
   border: 1px solid #ccc;
   border-radius: 5px;
   list-style: none;
@@ -103,7 +103,7 @@ const DropdownProvince = ({ url, label, onSelect }: DropdownProps) => {
         {selectedItem ? selectedItem.province : "Pilih Opsi"}
       </DropdownButton>
       {isOpen && (
-        <DropdownList bgColor="green">
+        <DropdownList bgcolor="green">
           {isLoading ? (
             <DropdownListItem>Loading...</DropdownListItem>
           ) : (
